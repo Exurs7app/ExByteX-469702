@@ -13807,7 +13807,11 @@ body.light-mode #wdOtpWarnText { color:#b45309 !important; }
     }
 
     function wdWriteHistory(history){
-        try{ localStorage.setItem('hh_wd_history', JSON.stringify(history.slice(0,100))); }catch(e){}
+        try{
+            var serialized = JSON.stringify(Array.isArray(history) ? history.slice(0,100) : []);
+            localStorage.setItem('hh_wd_history', serialized);
+            return localStorage.getItem('hh_wd_history') === serialized;
+        }catch(e){ return false; }
     }
 
     /*
@@ -13975,8 +13979,9 @@ body.light-mode #wdOtpWarnText { color:#b45309 !important; }
         var passwordInput = document.getElementById('wdPasswordInput');
         if(!btn) return;
         var amount = parseFloat(amountInput ? amountInput.value : '');
+        var address = addressInput ? addressInput.value.trim() : '';
         var ready = !!(
-            addressInput && addressInput.value.trim() &&
+            address && wdIsAddressValidForNetwork(address, _wdNetwork) &&
             isFinite(amount) && amount > 0 &&
             passwordInput && passwordInput.value.trim()
         );
@@ -14009,9 +14014,22 @@ body.light-mode #wdOtpWarnText { color:#b45309 !important; }
         var amountInput = document.getElementById('wdAmountInput');
         var pwd = (document.getElementById('wdPasswordInput') || {}).value || '';
         var amount = parseFloat(amountInput ? amountInput.value : '');
-        var availBal = window._hhMainBalance || 0;
-        if(!addr.trim() || !isFinite(amount) || amount <= 0 || !pwd.trim()){
-            wdShowInsufficientModal(); return;
+        var availBal = wdGetAvailableBalance();
+        if(!addr.trim()){
+            if(typeof toast === 'function') toast('⚠️ يرجى إدخال عنوان المحفظة');
+            return;
+        }
+        if(!wdIsAddressValidForNetwork(addr, _wdNetwork)){
+            if(typeof toast === 'function') toast('⚠️ عنوان المحفظة غير صالح للشبكة المحددة');
+            return;
+        }
+        if(!isFinite(amount) || amount <= 0){
+            if(typeof toast === 'function') toast('⚠️ يرجى إدخال مبلغ صحيح');
+            return;
+        }
+        if(!pwd.trim()){
+            if(typeof toast === 'function') toast('⚠️ يرجى إدخال كلمة مرور التعامل');
+            return;
         }
         if(availBal <= 0 || amount > availBal){
             wdShowInsufficientModal(); return;
@@ -14052,7 +14070,7 @@ body.light-mode #wdOtpWarnText { color:#b45309 !important; }
         var amt  = (document.getElementById('wdAmountInput')  || {}).value || '';
         var pwd  = (document.getElementById('wdPasswordInput')|| {}).value || '';
         var amountValue = parseFloat(amt);
-        var availableBalance = window._hhMainBalance || 0;
+        var availableBalance = wdGetAvailableBalance();
         if(!addr.trim() && !amt.trim() && !pwd.trim()) return;
         if(!addr.trim() || !isFinite(amountValue) || amountValue <= 0 || !pwd.trim() ||
            !wdIsAddressValidForNetwork(addr, _wdNetwork) ||
@@ -14068,9 +14086,9 @@ body.light-mode #wdOtpWarnText { color:#b45309 !important; }
             if(typeof toast === 'function') toast('❌ كلمة مرور الدفع غير صحيحة');
             return;
         }
-        /* خصم الرصيد فوراً، ثم يُعاد تلقائياً إذا رُفض الطلب بعد 30 دقيقة */
-        var newBal = Math.max(0, availableBalance - amountValue);
-        if(typeof window.updatePlatformBalance === 'function') window.updatePlatformBalance(newBal);
+        /* رسوم الشبكة يجب حسابها داخل دالة الإرسال نفسها؛
+           لا تعتمد على متغير محلي من شاشة المراجعة. */
+        var fee = _wdNetworkFees[_wdNetwork] || 1.00;
         /* توليد معرف معاملة واقعي بصيغة البلوكتشين */
         function genBlockchainTxID(network){
             /* مولّد PRNG بسيط مُبذّر بالوقت الحالي */
@@ -14099,9 +14117,9 @@ body.light-mode #wdOtpWarnText { color:#b45309 !important; }
         })();
         var now = new Date();
         var timeStr = (window.toLatinDigits||String)(now.toLocaleDateString('en-CA-u-nu-latn') + ' ' + now.toLocaleTimeString('en-GB-u-nu-latn',{hour:'2-digit',minute:'2-digit',hour12:false}));
-        var hist = JSON.parse(localStorage.getItem('hh_wd_history') || '[]');
+        var hist = wdReadHistory();
         var createdAt = Date.now();
-        hist.unshift({
+        var record = {
             txID:txID,
             reqID:reqID,
             amount:amountValue,
@@ -14113,8 +14131,34 @@ body.light-mode #wdOtpWarnText { color:#b45309 !important; }
             rejectAt:createdAt + WD_REJECTION_DELAY,
             status:'pending',
             refunded:false
-        });
-        localStorage.setItem('hh_wd_history', JSON.stringify(hist.slice(0,100)));
+        };
+        hist.unshift(record);
+        /*
+         * سجل الطلب أولاً وتحقق من نجاح الحفظ. هذا يمنع خصم الرصيد
+         * إذا كان التخزين ممتلئاً أو غير متاح، وهو سبب شائع لاختفاء
+         * العملية بدون ظهورها في السجل.
+         */
+        if(!wdWriteHistory(hist)){
+            wdCloseOtp();
+            if(typeof toast === 'function') toast('⚠️ تعذر حفظ طلب السحب، حاول مرة أخرى');
+            return;
+        }
+        /* خصم الرصيد فوراً، ثم يُعاد تلقائياً إذا رُفض الطلب بعد 30 دقيقة */
+        var newBal = Math.max(0, availableBalance - amountValue);
+        try{
+            if(typeof window.updatePlatformBalance === 'function') window.updatePlatformBalance(newBal);
+            else{
+                window._hhMainBalance = newBal;
+                localStorage.setItem('hh_main_balance', String(newBal));
+            }
+        }catch(e){
+            hist.shift();
+            wdWriteHistory(hist);
+            wdCloseOtp();
+            if(typeof toast === 'function') toast('⚠️ تعذر تحديث الرصيد، لم يتم تسجيل السحب');
+            return;
+        }
+        window._wdHistCache = hist.slice(0,100);
         wdCloseOtp();
         if(typeof window.renderWithdrawHistory === 'function') window.renderWithdrawHistory();
         /* إعادة تعيين الحقول */
