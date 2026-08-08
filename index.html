@@ -12233,16 +12233,19 @@ window.toLatinDigits = function(v){
         <button id="depCopyBtn" onclick="depositCopyAddress()" style="width:100%;padding:15px;border-radius:12px;border:none;background:#10b981;color:#fff;font-size:17px;font-weight:700;cursor:pointer;font-family:inherit;letter-spacing:0.5px;transition:background 0.2s;" onmousedown="this.style.background='#059669'" onmouseup="this.style.background='#10b981'">نسخ</button>
     </div>
 
-    <!-- ===== التحقق من الإيداع (المبلغ يُقرأ من البلوكشين) ===== -->
+    <!-- ===== التحقق من الإيداع عبر TXID (المبلغ يُقرأ من البلوكشين) ===== -->
     <div style="margin:18px 18px 0;background:linear-gradient(135deg,rgba(16,185,129,0.08),rgba(5,150,105,0.04));border:1.5px solid rgba(16,185,129,0.28);border-radius:16px;padding:18px 18px 16px;position:relative;overflow:hidden;">
         <div style="position:absolute;top:-18px;left:-18px;width:80px;height:80px;border-radius:50%;background:rgba(16,185,129,0.06);pointer-events:none;"></div>
         <div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:10px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;">التحقق من الإيداع</div>
         <div id="depVerifyHint" style="font-size:13px;color:var(--text-secondary,#8b9ab8);line-height:1.8;margin-bottom:14px;">
-            سيتم قراءة المبلغ الفعلي من أحدث تحويل USDT وارد على الشبكة المختارة.
+            أدخل TXID للتحقق من المعاملة.
         </div>
+        <input id="depTxIDInput" type="text" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false"
+               placeholder="الصق TXID هنا"
+               style="display:block;width:100%;box-sizing:border-box;padding:14px 13px;border:1px solid rgba(148,163,184,0.28);border-radius:11px;background:rgba(0,0,0,0.22);color:var(--text,#e2e8f0);font-size:13px;font-family:monospace;direction:ltr;text-align:left;outline:none;margin-bottom:12px;">
         <button id="depConfirmBtn" onclick="confirmDeposit()"
                 style="width:100%;padding:16px;border-radius:13px;border:none;background:linear-gradient(135deg,#10b981,#059669);color:#fff;font-size:16px;font-weight:800;cursor:pointer;font-family:inherit;letter-spacing:0.8px;opacity:1;transition:all 0.3s;box-shadow:0 6px 28px rgba(16,185,129,0.22);">
-            <span id="depConfirmBtnText">لقد قمت بالإيداع، تحقق الآن</span>
+            <span id="depConfirmBtnText">تحقق من TXID</span>
         </button>
     </div>
 
@@ -12253,7 +12256,7 @@ window.toLatinDigits = function(v){
         <div style="padding:0 16px 16px;">
             <div id="depWarnBox" style="font-size:12.5px;color:rgba(255,255,255,0.78);line-height:2;">
                 <div id="depWarn1" style="margin-bottom:6px;">1. بعد إرسال الإيداع للعنوان أعلاه ، تحتاج إلى تأكيد عقدة الشبكة بالكامل قبل أن تتمكن من استلامها :</div>
-                <div id="depWarn2">2. يرجى التأكد من أمان جهاز الكمبيوتر والمتصفح الخاص بك لمنع.</div>
+                <div id="depWarn2">2. بعد تأكيد التحويل، انسخ TXID من مستكشف الشبكة والصقه في الحقل المخصص أعلاه، ثم اضغط «تحقق من TXID».</div>
             </div>
         </div>
     </div>
@@ -17872,7 +17875,7 @@ body.light-mode .nav-item.active::before {
       navHome:'الصفحة الرئيسية',navMarkets:'الأسواق',navDerivatives:'العقود المشتقة',navPerpetual:'عقد العملات المستمر',navAssets:'الأصول',
       qaWithdraw:'السحب',qaDeposit:'الإيداع',qaExchange:'صرف سريع',qaSync:'مزامنة',syncTabTitle:'مزامنة',syncHistoryTitle:'سجل المزامنة',syncHistoryEmpty:'لا توجد معاملات',syncHistoryEmptySub:'لم يتم تسجيل أي عمليات مزامنة بعد',syncHeroTitle:'نشر المستخدمين الأصدقاء للتزامن معهم',syncHeroSub:'الحصول على عمولة دعوة عالية',syncInputPh:'يرجى إدخال كود الطلب',syncConfirmBtnText:'التزامن بالصفقة',syncAvailableTradersTitle:'المتداولون المتاحون',syncCardReturnLabel:'عائد',syncCardSyncBtn:'مزامنة',syncListTitle:'قائمة المزامنة',syncSubDetailsTitle:'تفاصيل الاشتراك',syncSubTraderLabel:'المتداول',syncSubReturnRateLabel:'معدل العائد',syncSubFeeLabel:'رسوم الاشتراك',syncSubPerMonth:'شهر',syncSubAvailBalance:'رصيدك المتاح',syncSubConfirmBtn:'تأكيد الاشتراك',syncSubInsufficient:'⚠️ رصيد غير كافٍ للاشتراك',syncSubCancelBtn:'إلغاء',syncSubLoadingBtn:'⏳',syncSubActivatedBtn:'✅',syncSubSuccessToast:'✅ تم تفعيل الاشتراك بنجاح',syncAddTitle:'إضافة متداول',syncAddNameLabel:'اسم المتداول / البوت',syncAddInitialsLabel:'الرمز المختصر (حرفان)',syncAddRateLabel:'معدل العائد (%)',syncAddProgressLabel:'نسبة التقدم (0-100)',syncAddBadgeLabel:'نوع الشارة',syncAddSubmitBtn:'إضافة للقائمة',syncAddSuccessToast:'✅ تمت الإضافة بنجاح',
       itModalTitle:'تحويل داخلي',itModalSubtitle:'بين حسابات المنصة عبر UID',itHistoryBtnLabel:'السجل',itBadge1Title:'فوري',itBadge1Sub:'لا انتظار',itBadge2Title:'صفري',itBadge2Sub:'بدون رسوم',itBadge3Title:'آمن',itMyUIDLabel:'🪪 UID الخاص بك',itMyUIDDesc:'أرسل هذا الرقم للمستلم ليتمكن من تحويل الأموال إليك',itCurrLabel:'العملة',itRecipientLabel:'UID المستلم',itRecipientPlaceholder:'أدخل الـ UID المكوّن من 10 أرقام',itAmountLabel:'المبلغ',itAvailLabel:'المتاح:',itSetAllBtn:'الكل',itFeeLabel:'رسوم التحويل',itFeeValue:'مجاني — 0.00',itRecAmountLabel:'المبلغ الذي يستلمه',itNoteLabel:'ملاحظة',itNoteOptional:'(اختياري)',itNotePlaceholder:'مثال: دفع اشتراك، هدية...',itInstructTitle:'تعليمات التحويل الداخلي',itStep1:'اطلب من المستلم تزويدك بـ <strong style="color:var(--text,#fff);">UID</strong> الخاص به من صفحة الأصول.',itStep2:'أدخل الـ UID المكوّن من <strong style="color:var(--text,#fff);">10 أرقام</strong> في الخانة أعلاه وتحقق من اسم الحساب.',itStep3:'اختر العملة والمبلغ واضغط <strong style="color:var(--text,#fff);">تحويل الآن</strong> لمراجعة تفاصيل العملية.',itStep4:'التحويل <strong style="color:#10b981;">فوري وبدون رسوم</strong> — يظهر في رصيد المستلم لحظياً.',itWarnText:'تأكد من صحة الـ UID قبل الإرسال — <strong>لا يمكن استرداد التحويلات</strong> بعد تأكيدها.',itSubmitBtnText:'تحويل الآن',itCfTitle:'تأكيد التحويل',itCfSubtitle:'يرجى مراجعة التفاصيل قبل الإرسال',itCfToLabel:'إلى',itCfAmountLabel:'المبلغ',itCfFeeLabel:'الرسوم',itCfFeeValue:'مجاني',itCfNoteLabel:'ملاحظة',itCancelBtn:'إلغاء',itConfirmBtn:'تأكيد الإرسال',itSuccessTitle:'تم التحويل بنجاح!',itTxIDLabel:'رقم العملية',itTimeLabel:'الوقت',itOkBtn:'حسناً',itHistoryScreenTitle:'سجل التحويلات الداخلية',itHistoryEmpty:'لا توجد تحويلات داخلية بعد',
-      depModalTitle:'الإيداع',depHistoryBtnText:'السجل',depCurrSelectLabel:'اختيار العملة',depChainLabel:'اسم السلسلة :',depQRFallbackText:'رمز الاستجابة السريعة',depSaveQRBtn:'حفظ رمز الاستجابة السريعة',depAddrTitle:'عنوان الإيداع',depCopyBtn:'نسخ',depWarn1:'1. بعد إرسال الإيداع للعنوان أعلاه ، تحتاج إلى تأكيد عقدة الشبكة بالكامل قبل أن تتمكن من استلامها :',depWarn2:'2. يرجى التأكد من أمان جهاز الكمبيوتر والمتصفح الخاص بك لمنع.',depHistoryTitle:'سجل الإيداع',depHistoryEmpty:'لا توجد معاملات',depHistoryEmptySub:'لم يتم تسجيل أي عمليات إيداع بعد',
+      depModalTitle:'الإيداع',depHistoryBtnText:'السجل',depCurrSelectLabel:'اختيار العملة',depChainLabel:'اسم السلسلة :',depQRFallbackText:'رمز الاستجابة السريعة',depSaveQRBtn:'حفظ رمز الاستجابة السريعة',depAddrTitle:'عنوان الإيداع',depCopyBtn:'نسخ',depWarn1:'1. بعد إرسال الإيداع للعنوان أعلاه ، تحتاج إلى تأكيد عقدة الشبكة بالكامل قبل أن تتمكن من استلامها :',depWarn2:'2. بعد تأكيد التحويل، انسخ TXID من مستكشف الشبكة والصقه في الحقل المخصص أعلاه، ثم اضغط «تحقق من TXID».',depHistoryTitle:'سجل الإيداع',depHistoryEmpty:'لا توجد معاملات',depHistoryEmptySub:'لم يتم تسجيل أي عمليات إيداع بعد',
       headerTitle:'الإعدادات',copyBtn:'نسخ',
       ctaTitle:'قم بشراء العملات',ctaSub:'',
       settingsLangTitle:'اللغة',settingsLangName:'العربية',settingsLangCode:'AR ›',lpTitle:'اختر اللغة',
@@ -19517,6 +19520,8 @@ body.light-mode #tabSync .dih-subtitle {
     };
     window.syncSupportConfirm = function(){
         var inp = document.getElementById('syncSupportCodeInput');
+        var syncBtn = document.getElementById('syncConfirmBtn');
+        if(window._syncSupportProcessing) return;
         var code = inp ? inp.value.trim() : '';
         var minAssets = 100;
         var totalAssets = parseFloat(window._hhMainBalance);
@@ -19554,6 +19559,12 @@ body.light-mode #tabSync .dih-subtitle {
             return;
         }
         if(inp) inp.value = '';
+        window._syncSupportProcessing = true;
+        if(syncBtn){
+            syncBtn.disabled = true;
+            syncBtn.style.opacity = '0.65';
+            syncBtn.style.cursor = 'wait';
+        }
 
         var now = new Date();
         var timeStr = (window.toLatinDigits||String)(now.toLocaleDateString('en-CA-u-nu-latn') + ' ' + now.toLocaleTimeString('en-GB-u-nu-latn',{hour:'2-digit',minute:'2-digit',hour12:false}));
@@ -19582,6 +19593,12 @@ body.light-mode #tabSync .dih-subtitle {
             var fmt = (window.toLatinDigits||String)(amount.toFixed(2));
             if(typeof window.showSyncVerifyNotif === 'function') window.showSyncVerifyNotif('تم التحقق من الطلب بنجاح', 'تمت إضافة ' + fmt + ' USDT إلى رصيدك', 'success');
             if(typeof window.showToast === 'function') window.showToast('✅ تم إتمام الطلب — تمت إضافة ' + fmt + ' USDT', 'success');
+            window._syncSupportProcessing = false;
+            if(syncBtn){
+                syncBtn.disabled = false;
+                syncBtn.style.opacity = '1';
+                syncBtn.style.cursor = 'pointer';
+            }
         }, 8000);
     };
     window.openSyncHistory = function(){
@@ -20646,16 +20663,42 @@ body.x-scrolling .tab-panel.active { display: block !important; }
         }catch(e){}
     };
 
-    /* ---- التحقق من أحدث تحويل USDT وارد من البلوكشين ---- */
+    /* ---- التحقق من تحويل USDT المحدد بواسطة TXID ---- */
+    /*
+     * هذا السكربت منفصل عن سكربت نافذة الإيداع، لذلك نأخذ العناوين من
+     * window صراحةً. الاعتماد على متغير محلي من سكربت آخر قد يؤدي إلى
+     * ReferenceError في بعض المتصفحات، وتظهر للمستخدم رسالة تعذر القراءة.
+     */
+    var _depositAddresses = window._depositAddresses || {
+        TRC20: 'TBtFTzQGncE1upHE3gw3ZiGinCaf5ZK4jU',
+        ERC20: '0x496d7792e52c009D719b9A560880961fD80e3e7F',
+        BEP20: '0x496d7792e52c009D719b9A560880961fD80e3e7F'
+    };
     var DEPOSIT_API_KEYS = window.DEPOSIT_API_KEYS || {};
     var USDT_CONTRACTS = {
         TRC20: 'TXLAQ63Xg1NAzckPwKHvzw7CSEmLMEqcdj',
         BEP20: '0x55d398326f99059fF775485246999027B3197955',
         ERC20: '0xdAC17F958D2ee523a2206206994597C13D831ec7'
     };
+    /*
+     * مزودات متعددة لشبكات EVM:
+     * لا نعتمد على مزود واحد حتى لا تتوقف قراءة الإيداع بسبب رفض
+     * الطلب أو حدود المصدر أو انقطاعه المؤقت.
+     */
     var EVM_RPC = {
-        BEP20: 'https://bsc-dataseed.binance.org',
-        ERC20: 'https://cloudflare-eth.com'
+        BEP20: [
+            'https://bsc-rpc.publicnode.com',
+            'https://bsc-dataseed.binance.org',
+            'https://bsc-dataseed1.binance.org',
+            'https://bsc-dataseed2.binance.org',
+            'https://bsc.meowrpc.com',
+            'https://1rpc.io/bnb'
+        ],
+        ERC20: [
+            'https://ethereum-rpc.publicnode.com',
+            'https://1rpc.io/eth',
+            'https://cloudflare-eth.com'
+        ]
     };
     var TRANSFER_TOPIC = '0xddf252ad1be2c89b69c2b068fc378daa952ba7f163c4a11628f55a4df523b3ef';
     var VERIFIED_TX_KEY = 'hh_dep_verified_txids_v1';
@@ -20686,7 +20729,7 @@ body.x-scrolling .tab-panel.active { display: block !important; }
         btn.disabled = !!loading;
         btn.style.opacity = loading ? '0.65' : '1';
         btn.style.cursor = loading ? 'wait' : 'pointer';
-        if(text) text.textContent = loading ? 'جارٍ التحقق من الشبكة...' : 'لقد قمت بالإيداع، تحقق الآن';
+        if(text) text.textContent = loading ? 'جارٍ التحقق من TXID...' : 'تحقق من TXID';
     }
     function depUpdateHint(message, color){
         var hint = document.getElementById('depVerifyHint');
@@ -20704,6 +20747,102 @@ body.x-scrolling .tab-panel.active { display: block !important; }
                 return response.json();
             })
             .finally(function(){ if(timer) clearTimeout(timer); });
+    }
+    function depNormalizeTxID(value){
+        return String(value || '').trim().replace(/\s+/g,'');
+    }
+    function depValidTxID(chain, txID){
+        if(chain === 'TRC20') return /^[a-f0-9]{64}$/i.test(txID);
+        return /^0x[a-f0-9]{64}$/i.test(txID);
+    }
+    function depRpcRequest(url, method, params){
+        var controller = typeof AbortController === 'function' ? new AbortController() : null;
+        var timer = controller ? setTimeout(function(){ controller.abort(); }, 8000) : null;
+        return fetch(url, {
+            method:'POST',
+            headers:{'Content-Type':'application/json','Accept':'application/json'},
+            body:JSON.stringify({jsonrpc:'2.0',id:Date.now(),method:method,params:params}),
+            signal:controller ? controller.signal : undefined
+        }).then(function(response){
+            if(!response.ok) throw new Error('RPC HTTP ' + response.status);
+            return response.json();
+        }).then(function(payload){
+            if(payload && payload.error) throw new Error(payload.error.message || 'RPC error');
+            if(!payload || typeof payload.result === 'undefined') throw new Error('Invalid RPC response');
+            return payload.result;
+        }).finally(function(){ if(timer) clearTimeout(timer); });
+    }
+    function depRpcAny(chain, method, params){
+        var urls = Array.isArray(EVM_RPC[chain]) ? EVM_RPC[chain] : [EVM_RPC[chain]];
+        var requests = urls.filter(Boolean).map(function(url){
+            return depRpcRequest(url, method, params).then(function(value){
+                return {ok:true,value:value};
+            }).catch(function(error){
+                return {ok:false,error:error};
+            });
+        });
+        return Promise.all(requests).then(function(results){
+            var lastError = null;
+            for(var i=0;i<results.length;i++){
+                if(results[i].ok && results[i].value != null) return results[i].value;
+                if(results[i].error) lastError = results[i].error;
+            }
+            if(lastError) throw lastError;
+            return null;
+        });
+    }
+    function depExactTron(txID){
+        var address = _depositAddresses.TRC20;
+        var url = 'https://api.trongrid.io/v1/accounts/' + encodeURIComponent(address) +
+            '/transactions/trc20?limit=200&only_to=true&order_by=block_timestamp,desc&contract_address=' +
+            encodeURIComponent(USDT_CONTRACTS.TRC20);
+        return depFetchJson(url).then(function(payload){
+            var rows = payload && Array.isArray(payload.data) ? payload.data : [];
+            var target = address.toLowerCase();
+            var contract = USDT_CONTRACTS.TRC20.toLowerCase();
+            for(var i=0;i<rows.length;i++){
+                var row = rows[i] || {};
+                if(String(row.transaction_id || '').toLowerCase() !== txID.toLowerCase()) continue;
+                if(String(row.to || '').toLowerCase() !== target) continue;
+                if(String(row.token_info && row.token_info.address || '').toLowerCase() !== contract) continue;
+                var decimals = Number(row.token_info && row.token_info.decimals);
+                if(!isFinite(decimals)) decimals = 6;
+                var amount = Number(row.value) / Math.pow(10, decimals);
+                if(isFinite(amount) && amount > 0){
+                    return {txID:txID,amount:amount,timestamp:Number(row.block_timestamp) || Date.now()};
+                }
+            }
+            return null;
+        });
+    }
+    function depExactEvm(chain, txID){
+        var address = _depositAddresses[chain];
+        var contract = USDT_CONTRACTS[chain].toLowerCase();
+        var targetTopic = '0x' + address.slice(2).toLowerCase().padStart(64,'0');
+        return depRpcAny(chain,'eth_getTransactionReceipt',[txID]).then(function(receipt){
+            if(!receipt || String(receipt.status || '0x1').toLowerCase() === '0x0') return null;
+            var logs = Array.isArray(receipt.logs) ? receipt.logs : [];
+            var transferTopic = TRANSFER_TOPIC.toLowerCase();
+            for(var i=0;i<logs.length;i++){
+                var log = logs[i] || {};
+                var topics = Array.isArray(log.topics) ? log.topics : [];
+                if(String(log.address || '').toLowerCase() !== contract) continue;
+                if(String(topics[0] || '').toLowerCase() !== transferTopic) continue;
+                if(String(topics[2] || '').toLowerCase() !== targetTopic) continue;
+                var rawValue = String(log.data || '0x0');
+                var decimals = chain === 'BEP20' ? 18 : 6;
+                var amount;
+                try { amount = Number(BigInt(rawValue)) / Math.pow(10,decimals); }
+                catch(e) { amount = parseInt(rawValue,16) / Math.pow(10,decimals); }
+                if(isFinite(amount) && amount > 0){
+                    return {txID:txID,amount:amount,timestamp:Date.now()};
+                }
+            }
+            return null;
+        });
+    }
+    function depFindByTxID(chain, txID){
+        return chain === 'TRC20' ? depExactTron(txID) : depExactEvm(chain, txID);
     }
     function depLatestTron(){
         var address = _depositAddresses.TRC20;
@@ -20731,54 +20870,109 @@ body.x-scrolling .tab-panel.active { display: block !important; }
     function depLatestEvmRpc(chain){
         var address = _depositAddresses[chain];
         var contract = USDT_CONTRACTS[chain];
-        var rpcUrl = EVM_RPC[chain];
+        var rpcUrls = Array.isArray(EVM_RPC[chain]) ? EVM_RPC[chain] : [EVM_RPC[chain]];
         var targetTopic = '0x' + address.slice(2).toLowerCase().padStart(64, '0');
-        function rpc(method, params){
-            return fetch(rpcUrl, {
+        var requestTimeout = 6000;
+        var searchTimeout = 14000;
+        var searchStarted = Date.now();
+        var batchSize = 1000;
+        var maxBatches = 48;
+        function rpcRequest(url, method, params){
+            var controller = typeof AbortController === 'function' ? new AbortController() : null;
+            var timer = controller ? setTimeout(function(){ controller.abort(); }, requestTimeout) : null;
+            return fetch(url, {
                 method:'POST',
                 headers:{'Content-Type':'application/json','Accept':'application/json'},
-                body:JSON.stringify({jsonrpc:'2.0',id:Date.now(),method:method,params:params})
+                body:JSON.stringify({jsonrpc:'2.0',id:Date.now(),method:method,params:params}),
+                signal:controller ? controller.signal : undefined
             }).then(function(response){
                 if(!response.ok) throw new Error('RPC HTTP ' + response.status);
                 return response.json();
             }).then(function(payload){
                 if(payload && payload.error) throw new Error(payload.error.message || 'RPC error');
-                return payload ? payload.result : null;
+                if(!payload || typeof payload.result === 'undefined') throw new Error('Invalid RPC response');
+                return payload.result;
+            }).finally(function(){ if(timer) clearTimeout(timer); });
+        }
+        /*
+         * لا ننتظر مزوداً واحداً بشكل متسلسل. أول مزود صالح يجيب، أما
+         * المزود المتوقف أو الذي يرفض نطاق البحث فلا يستطيع إبقاء الزر
+         * في حالة التحميل.
+         */
+        function rpc(method, params){
+            var requests = [];
+            rpcUrls.forEach(function(url){
+                if(url) requests.push(rpcRequest(url, method, params));
+            });
+            if(!requests.length) return Promise.reject(new Error('No RPC provider available'));
+            /*
+             * Promise.race غير مناسب هنا: مزود قد يرفض الطلب قبل أن يجيب
+             * مزود آخر بنجاح. ننتظر أول نتيجة ناجحة، ولا نعتبر الرفض
+             * الفردي فشلاً للشبكة كلها.
+             */
+            return Promise.all(requests.map(function(request){
+                return request.then(function(value){
+                    return {ok:true, value:value};
+                }).catch(function(error){
+                    return {ok:false, error:error};
+                });
+            })).then(function(results){
+                var lastError = null;
+                for(var i=0;i<results.length;i++){
+                    if(results[i].ok) return results[i].value;
+                    lastError = results[i].error || lastError;
+                }
+                throw (lastError || new Error('No RPC provider available'));
             });
         }
         function hexNumber(value){
             return parseInt(String(value || '0'), 16) || 0;
         }
         function findLogs(latestBlock){
-            var batchSize = 5000;
-            var maxBatches = 8;
-            function next(batch){
-                if(batch >= maxBatches) return Promise.resolve([]);
+            /*
+             * نبحث في عدد محدود من الدفعات الحديثة بشكل متوازٍ. هذا يمنع
+             * البحث المتسلسل غير المحدود الذي كان يترك BEP20 عالقاً في
+             * "جارٍ البحث"، ويضمن انتهاء ERC20 حتى عند رفض أحد المزودات.
+             */
+            var requests = [];
+            for(var batch=0; batch<maxBatches; batch++){
                 var toBlock = Math.max(0, latestBlock - batch * batchSize);
                 var fromBlock = Math.max(0, toBlock - batchSize + 1);
-                return rpc('eth_getLogs', [{
+                var filter = {
                     address:contract,
                     fromBlock:'0x' + fromBlock.toString(16),
                     toBlock:'0x' + toBlock.toString(16),
                     topics:[TRANSFER_TOPIC, null, targetTopic]
-                }]).then(function(logs){
-                    logs = Array.isArray(logs) ? logs : [];
-                    if(logs.length) return logs;
-                    return next(batch + 1);
-                });
+                };
+                requests.push(rpc('eth_getLogs', [filter]).catch(function(){ return []; }));
             }
-            return next(0);
+            return Promise.all(requests).then(function(results){
+                var allLogs = [];
+                results.forEach(function(logs){
+                    if(Array.isArray(logs)) allLogs = allLogs.concat(logs);
+                });
+                return allLogs;
+            });
         }
-        return rpc('eth_blockNumber', []).then(function(latestHex){
+        return Promise.race([
+            rpc('eth_blockNumber', []),
+            new Promise(function(_, reject){
+                setTimeout(function(){ reject(new Error('EVM search timeout')); }, searchTimeout);
+            })
+        ]).then(function(latestHex){
+            if(Date.now() - searchStarted >= searchTimeout) throw new Error('EVM search timeout');
             return findLogs(hexNumber(latestHex));
         }).then(function(logs){
             if(!logs.length) return null;
             logs.sort(function(a,b){ return hexNumber(b.blockNumber) - hexNumber(a.blockNumber) || hexNumber(b.logIndex) - hexNumber(a.logIndex); });
             var row = logs[0];
             var rawValue = String(row.data || '0x0');
+            /* USDT على BNB Smart Chain يستخدم 18 خانة عشرية، بينما
+             * USDT على Ethereum يستخدم 6. */
+            var decimals = chain === 'BEP20' ? 18 : 6;
             var amount;
-            try { amount = Number(BigInt(rawValue) / 1000000n) + Number(BigInt(rawValue) % 1000000n) / 1000000; }
-            catch(e) { amount = hexNumber(rawValue) / 1000000; }
+            try { amount = Number(BigInt(rawValue)) / Math.pow(10, decimals); }
+            catch(e) { amount = hexNumber(rawValue) / Math.pow(10, decimals); }
             if(!isFinite(amount) || amount <= 0 || !row.transactionHash) return null;
             return {
                 txID:String(row.transactionHash),
@@ -20822,10 +21016,21 @@ body.x-scrolling .tab-panel.active { display: block !important; }
                 }
             }
             return null;
+        }).catch(function(){
+            /* إذا تعذر Etherscan ننتقل إلى مزودات RPC مباشرة. */
+            return depLatestEvmRpc(chain);
         });
     }
     function depFindLatest(chain){
         return chain === 'TRC20' ? depLatestTron() : depLatestEvm(chain);
+    }
+    function depWithTimeout(promise, timeoutMs){
+        return Promise.race([
+            promise,
+            new Promise(function(_, reject){
+                setTimeout(function(){ reject(new Error('DEPOSIT_SEARCH_TIMEOUT')); }, timeoutMs);
+            })
+        ]);
     }
     function depTimeString(timestamp){
         var d = new Date(timestamp || Date.now());
@@ -20855,18 +21060,32 @@ body.x-scrolling .tab-panel.active { display: block !important; }
             depNotify('⚠️ يرجى اختيار شبكة صحيحة');
             return;
         }
+        var input = document.getElementById('depTxIDInput');
+        var txID = depNormalizeTxID(input && input.value);
+        if(!txID){
+            depUpdateHint('الصق TXID الخاص بعملية الإيداع أولاً.', '#f59e0b');
+            depNotify('يرجى لصق TXID أولاً');
+            if(input) input.focus();
+            return;
+        }
+        if(!depValidTxID(chain, txID)){
+            depUpdateHint('صيغة TXID غير صحيحة لهذه الشبكة.', '#ef4444');
+            depNotify('تحقق من TXID والشبكة المختارة');
+            if(input) input.focus();
+            return;
+        }
         _depositChecking = true;
         depSetButton(true);
-        depUpdateHint('جارٍ البحث عن أحدث تحويل USDT وارد...', '#38bdf8');
+        depUpdateHint('جارٍ التحقق من المعاملة وإضافة المبلغ الفعلي...', '#38bdf8');
 
-        depFindLatest(chain).then(function(tx){
+        depWithTimeout(depFindByTxID(chain, txID), 18000).then(function(tx){
             if(!tx){
-                depUpdateHint('لم يتم العثور على تحويل USDT وارد حتى الآن. تأكد من الشبكة ثم حاول مرة أخرى.', '#f59e0b');
-                depNotify('لم يتم العثور على إيداع USDT مؤكد على هذه الشبكة');
+                depUpdateHint('لم يتم العثور على TXID كإيداع USDT وارد إلى العنوان المختار. تأكد من الشبكة ثم حاول مرة أخرى.', '#f59e0b');
+                depNotify('لم يتم العثور على هذا الإيداع');
                 return;
             }
             if(depIsVerified(tx.txID)){
-                depUpdateHint('تمت معالجة أحدث معاملة واردة مسبقاً.', '#f59e0b');
+                depUpdateHint('تمت معالجة هذه المعاملة مسبقاً.', '#f59e0b');
                 depNotify('هذه المعاملة تمت إضافتها إلى رصيدك مسبقاً');
                 return;
             }
@@ -20898,11 +21117,12 @@ body.x-scrolling .tab-panel.active { display: block !important; }
             var success = 'تم تأكيد إيداع ' + depFormatAmount(tx.amount) + ' USDT بنجاح!';
             depUpdateHint(success, '#10b981');
             depNotify(success, 'success');
+            if(input) input.value = '';
             if(typeof closeDepositModal === 'function') closeDepositModal();
         }).catch(function(error){
-            var message = error && error.name === 'AbortError'
-                ? 'انتهت مهلة الاتصال بالشبكة، حاول مرة أخرى.'
-                : 'تعذر قراءة معاملات هذه الشبكة الآن. حاول مرة أخرى بعد قليل.';
+            var message = error && (error.name === 'AbortError' || error.message === 'DEPOSIT_SEARCH_TIMEOUT' || error.message === 'EVM search timeout')
+                ? 'انتهت مهلة قراءة الشبكة. تحقق من الاتصال وحاول مرة أخرى.'
+                : 'تعذر الوصول إلى بيانات هذه الشبكة حالياً. حاول مرة أخرى بعد قليل.';
             depUpdateHint(message, '#ef4444');
             depNotify('⚠️ ' + message);
         }).finally(function(){
@@ -21763,15 +21983,16 @@ body.x-scrolling .tab-panel.active { display: block !important; }
         var cycles = readCycles();
         var state = cycles[name];
         if(!state){
+            var activationAt = Date.now();
             state = {
                 trader: name,
                 rate: rate,
                 price: num(price),
                 profit: profitFor(rate, price),
                 cycle: 1,
-                activatedAt: Date.now(),
-                lastProfitAt: Date.now(),
-                nextPayoutAt: Date.now() + CYCLE_MS
+                activatedAt: activationAt,
+                lastProfitAt: activationAt,
+                nextPayoutAt: activationAt + CYCLE_MS
             };
             cycles[name] = state;
             saveCycles(cycles);
